@@ -3,38 +3,62 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Robota - Web Worker Library</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        
+        <script src="js/zone.js"></script>
+        <script src="js/jquery-2.1.3.min.js"></script>
+        <script src="js/core-estimator.min.js"></script>
+        <script src="js/es6-promise-2.0.1.min.js"></script>
+ 
+        <script src="js/robota_tests.js"></script>
+        
+        <script>
+			$( document ).ready(function(){
+			  $(document.body).on('click', tests.buttons);
+			});  
+        </script>
+        
     </head>
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-        </script>
+		<p>The goal of robota is to primarily make using web workers more powerful, and easier. There are some common issues and scenarios that robota has been desgined to address.
+		
+			<ul>
+				<li>To be able to pass functions in-line if desired, rather than in external .js libs.</li>
+				<li>To flexibly use the maximum number of processors that your browsers host features.</li>
+				<li>To run a batch of x tasks, triggering a callback on each tasks completion.</li>
+				<li>To run a batch of x tasks, triggering a single callback when all are complete.</li>
+				<li>To run a chain of tasks, where the resuts of one is fed to the next, triggering a callback when all are complete.</li>
+			</ul>
+		</p>
+		
+		<span class="test_unit">
+			<span class="test_case">
+				<button id="button_test_one_no_robota">Test One - No Robota</button>
+				<p>In this secenario we need to dispatch an arbitrary number of independent work units. In this case, we do not care when each unit completes, 
+				we only care how quickly ALL of the work units are completed. Optionally we may want a callback to be executed as each unit completes.</p>
+				<p>A usage scenario would be a user creating 3000 non-instanced spheres in a WebGL library. Scene drawing cannot go ahead until all of the 
+				spheres have been added to the scene graph.</p>
+			</span>
+			<span id="test_one_result" class="test_result"></span>
+		</span>
+		
+		<span class="test_unit">
+			<span class="test_case">
+				<button id="button_test_one_no_robota">Test Two - No Robota</button>
+				<p>Here we need to dispatch an arbitrary number of work units. Once ALL units are complete, we need to receive the results back via a callback. 
+				The results should be in the same order in which they were dispatched.</p>
+				<p>For our usage scenario, we will take an array of data and each unit will be multiplied by a fixed value. Once all units are complete 
+				we will multiply the first two results, and then alternatively divide and multiply the current total. Key to this scenario is that the end 
+				result is always the same. To demonstrate this we will run this test multiple times to show consistency.</p>
+			</span>
+			<span id="test_two_result" class="test_result"></span>
+		</span>
     </body>
 </html>

@@ -280,3 +280,31 @@ textarea {
         page-break-after: avoid;
     }
 }
+
+.test_unit {
+	margin:				20px 0 0 30px;
+	display:			table;
+}
+
+.test_case {
+	width:				500px;
+	
+	font-size:			15px;
+	line-height:		1.5em;
+	
+	padding:			15px 18px 20px 18px;
+	background:			hsl(210,4%,95%);
+	border-radius:		8px 0 0 8px;
+
+	display:			table-cell;
+}
+
+.test_result {
+	width:				500px;
+	background:			hsl(40,70%,95%);
+	border-radius:		0 8px 8px 0;
+	
+	padding:			15px 18px 20px 18px;
+	
+	display:			table-cell;
+}
