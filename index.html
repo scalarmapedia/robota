@@ -17,6 +17,7 @@
         <script src="js/core-estimator.min.js"></script>
         <script src="js/es6-promise-2.0.1.min.js"></script>
  
+        <script src="robota.js"></script>
         <script src="js/robota_tests.js"></script>
         
         <script>
@@ -38,9 +39,13 @@
 			</ul>
 		</p>
 		
-		<span class="test_unit">
+		<span id="test_one" class="test_unit">
+			<span class="working_icon"></span>
 			<span class="test_case">
-				<button id="button_test_one_no_robota">Test One - No Robota</button>
+				<button id="button_test_3_units_no_robota">3 Units - No Robota</button>
+				<button id="button_test_20_units_no_robota">20 Units - No Robota</button><br>
+				<button id="button_test_3_units">3 Units</button>
+				<button id="button_test_20_units">20 Units</button>
 				<p>In this secenario we need to dispatch an arbitrary number of independent work units. In this case, we do not care when each unit completes, 
 				we only care how quickly ALL of the work units are completed. Optionally we may want a callback to be executed as each unit completes.</p>
 				<p>A usage scenario would be a user creating 3000 non-instanced spheres in a WebGL library. Scene drawing cannot go ahead until all of the 
@@ -49,7 +54,7 @@
 			<span id="test_one_result" class="test_result"></span>
 		</span>
 		
-		<span class="test_unit">
+		<span id="test_two" class="test_unit">
 			<span class="test_case">
 				<button id="button_test_one_no_robota">Test Two - No Robota</button>
 				<p>Here we need to dispatch an arbitrary number of work units. Once ALL units are complete, we need to receive the results back via a callback. 
