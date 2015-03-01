@@ -7,7 +7,7 @@ tests.aForty = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,2
 tests.workUnit = function(number,unitCallback)
 {
 	var result = number;
-	for (i = 0; i < 1000000; i++)
+	for (i = 0; i < 9000000; i++)
 	{ 
 		result = Math.sqrt(number).toFixed(3);
     }
@@ -22,14 +22,13 @@ tests.workUnitWorker = function(event)
   	var number = event.data[0];
   	var result = number;
   	
-	for (i = 0; i < 1000000; i++)
+	for (i = 0; i < 9000000; i++)
 	{ 
 		result = Math.sqrt(number).toFixed(3);
     }
 	
     postMessage(result);
   }
-
 }
 
 tests.doWorkUnits = function(units,unitCallback)
@@ -119,18 +118,23 @@ tests.testOne = function(
 	
 	var unitCompleteCB = function(unitResult)
 	{
-		var resultsDiv = $('#test_one_result');
-		resultsDiv.append('<p>' + unitResult + '</p>');
-		resultsDiv.get(0).scrollTop = resultsDiv.get(0).scrollHeight;
+		//var resultsDiv = $('#test_one_result');
+		//resultsDiv.append('<p>' + unitResult + '</p>');
+		//resultsDiv.get(0).scrollTop = resultsDiv.get(0).scrollHeight;
 	}
 	
 	var  jobCompleteCB = function(results)
 	{
+		tests.endTime = new Date().getTime();
+		console.log('duration of test = ' + (tests.endTime - tests.startTime) / 1000);
+		
 		var resultsDiv = $('#test_one_result');
 		resultsDiv.append('<p>All Tasks Completed</p>');
 		resultsDiv.append('<p>Results are '+results.toString()+'</p>');
-		resultsDiv.get(0).scrollTop = resultsDiv.get(0).scrollHeight;			
+		resultsDiv.get(0).scrollTop = resultsDiv.get(0).scrollHeight;	
 	}
+	
+	tests.startTime = new Date().getTime();
 	
 /* 	var robo = new robota();
 	robo.setWorker(tests.workUnitWorker);	
@@ -140,6 +144,7 @@ tests.testOne = function(
 	robo.doWork(); */
 	
 	var bot = new robota({
+			//worker:'/js/workUnitWorker.js',
 			worker:tests.workUnitWorker,
 			workData:tests.aForty,
 			unitCompletionCallback:unitCompleteCB,
