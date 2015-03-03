@@ -12,14 +12,17 @@ Robota takes in an array of data, this can be anything you wish, strings, number
 
 # Usage
 
-#### var robot = new robota(jobObject)`
+#### var robot = new robota(argObject)`
 This will construct a new robota for you. Once constructed, you can either set its paramaters individually before letting it rip, or supply all of them in via the optional jobObject.
 
 *Job object Arguments*
 * `worker`: This can either be the path (string) to a Webworker .js file, or a Function reference (see notes on this below).
 * `workData` : An array of data to be worked on.
-  * `unitCompletionCallback` : (optional) A Function reference for a Callback to be executed as each unit of work is completed.
-  * `jobCompletionCallback` : (optional) A Function reference for a Callback to be executed when all of the units have been processed and the job is complete.
+* `unitCompletionCallback` : (optional) A Function reference for a Callback to be executed as each unit of work is completed.
+* `jobCompletionCallback` : (optional) A Function reference for a Callback to be executed when all of the units have been processed and the job is complete.
+* `cores` : By default cores is equal to ALL of the cores the browser has access to. However, you can directly set this number here. Internally this has a min value of 1.
+* `reservedCores` : How many cores are reserved against use by robota. The default is 1, giving the system one core to still work with, but you can drop this to 0 if you want ALL cores on a task.
+
 
   
 
@@ -50,7 +53,17 @@ When instantiated in this way, the new robota object will check if it has a vali
 
 If you passed in a `unitCompleteCallback it` is called as each unit is completed, being passed the result from the worker.
 
-When all the tasks are complete, they are available in .workUnitsResults and this is passed into `jobCompletionCallback` if you defined it. 
+When all the tasks are complete, they are available in `.workUnitsResults` and this is passed into `jobCompletionCallback` if you defined it.
+
+*Cores*
+A quick word on the `cores` and `reservedCores` args. The internal default for these is cores = ALL cores, and reservedCores = 1. From these values a workerPool value is created which is the actual number of cores that will be used. WorkerPool is simply `cores - reservedCores`. So if you have an 8 core machine, the default would be to execute the code using 7 cores, leaving one spare for the system to get by on.
+
+If you want to hard code a job to only use 1 core, just use
+
+cores:1
+reservedCores:0
+
+Robota will ensure at least one core is available, otherwise, well, whats the point?
 
 
 
