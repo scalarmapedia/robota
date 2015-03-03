@@ -1,5 +1,3 @@
-THIS IS A WIP, PLEASE DO NOT USE RIGHT NOW!!
-
 robota.js
 ===========
 
@@ -25,8 +23,6 @@ This will construct a new robota for you. Once constructed, you can either set i
 
 
   
-
-
 # Installation
 Just download the src .zip from this page. You'll need to reference this file in your documents head
 
@@ -37,6 +33,8 @@ Only `robota.js` is required for the core functionality.
 `/js/core-estimator.min.js` is a polyfill for browsers that do not support `navigator.getHardwareConcurrency`. This browser property is required to allow Robota to calculate the maximum number of cores available. I'd highly recommend using it, to get the most cores on the task.
 
 `/js/worker.js` will give you a polyfill for Workers in browsers that do not support them. Its an iFrame based approach that will at least make the same code execute as expected.
+
+
 
 ### Example
 Here is an example of creating a new robota and assigning the worker, data and callbacks.
@@ -54,6 +52,8 @@ When instantiated in this way, the new robota object will check if it has a vali
 If you passed in a `unitCompleteCallback it` is called as each unit is completed, being passed the result from the worker.
 
 When all the tasks are complete, they are available in `.workUnitsResults` and this is passed into `jobCompletionCallback` if you defined it.
+
+
 
 ### Cores
 A quick word on the `cores` and `reservedCores` args. The internal default for these is *cores = ALL cores*, and *reservedCores = 1*. From these values a *workerPool* value is created which is the actual number of cores that will be used. WorkerPool is simply `cores - reservedCores`. So if you have an 8 core machine, the default would be to execute the code using 7 cores, leaving one spare for the system to get by on.
