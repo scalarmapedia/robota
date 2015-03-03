@@ -38,7 +38,7 @@ Only `robota.js` is required for the core functionality.
 
 `/js/worker.js` will give you a polyfill for Workers in browsers that do not support them. Its an iFrame based approach that will at least make the same code execute as expected.
 
-*Example*
+### Example
 Here is an example of creating a new robota and assigning the worker, data and callbacks.
 ```javascript
 var bot = new robota({
@@ -55,8 +55,8 @@ If you passed in a `unitCompleteCallback it` is called as each unit is completed
 
 When all the tasks are complete, they are available in `.workUnitsResults` and this is passed into `jobCompletionCallback` if you defined it.
 
-# Cores
-A quick word on the `cores` and `reservedCores` args. The internal default for these is cores = ALL cores, and reservedCores = 1. From these values a workerPool value is created which is the actual number of cores that will be used. WorkerPool is simply `cores - reservedCores`. So if you have an 8 core machine, the default would be to execute the code using 7 cores, leaving one spare for the system to get by on.
+### Cores
+A quick word on the `cores` and `reservedCores` args. The internal default for these is *cores = ALL cores*, and *reservedCores = 1*. From these values a *workerPool* value is created which is the actual number of cores that will be used. WorkerPool is simply `cores - reservedCores`. So if you have an 8 core machine, the default would be to execute the code using 7 cores, leaving one spare for the system to get by on.
 
 If you want to hard code a job to only use 1 core, just use
 
